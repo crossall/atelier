@@ -9,13 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- [1. 기본 설정 & 리셋] --- */
+        /* --- [1. 기본 설정 (Reset & Variables)] --- */
         :root {
-            --bg-color: #0a0a0a;
-            --text-main: #f0f0f0;
-            --text-sub: #888888;
-            --accent: #d4af37; /* 차분한 골드 포인트 */
-            --border: #333333;
+            --bg-color: #0a0a0a;       /* 딥 다크 배경 */
+            --text-main: #f0f0f0;      /* 메인 텍스트 (화이트) */
+            --text-sub: #888888;       /* 서브 텍스트 (그레이) */
+            --accent: #d4af37;         /* 포인트 컬러 (차분한 골드) */
+            --border: #333333;         /* 경계선 색상 */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,13 +25,13 @@
             color: var(--text-main);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
             line-height: 1.7;
-            overflow-x: hidden;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
 
-        /* 타이포그래피 */
+        /* 타이포그래피 설정 */
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
             font-weight: 400;
@@ -43,7 +43,7 @@
             padding: 0 20px;
         }
 
-        /* --- [2. 애니메이션 효과] --- */
+        /* --- [2. 애니메이션 (Fade In)] --- */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -63,7 +63,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            mix-blend-mode: difference;
+            mix-blend-mode: difference; /* 배경색에 따라 글자색 반전 */
         }
         .logo { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: 2px; }
 
@@ -77,7 +77,7 @@
             background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
         }
         .hero h1 {
-            font-size: 4rem; /* 모바일 대응 필요 */
+            font-size: 4rem;
             letter-spacing: -1px;
             margin-bottom: 20px;
             background: linear-gradient(to right, #fff, #888);
@@ -98,7 +98,7 @@
             animation: bounce 2s infinite;
         }
 
-        /* --- [4. 매니페스토 (철학)] --- */
+        /* --- [4. 매니페스토 (철학 선언)] --- */
         .section { padding: 120px 0; border-bottom: 1px solid #111; }
         .manifesto-grid {
             display: grid;
@@ -112,6 +112,7 @@
             text-transform: uppercase;
             margin-bottom: 20px;
             display: block;
+            font-weight: 600;
         }
         .manifesto-text {
             font-size: 1.5rem;
@@ -145,7 +146,6 @@
         }
         .fellow-card {
             background: #111;
-            padding: 0;
             border: 1px solid #222;
             transition: transform 0.3s;
         }
@@ -153,47 +153,90 @@
         
         .fellow-img-box {
             width: 100%;
-            height: 300px;
+            height: 350px; /* 사진 높이 고정 */
             background-color: #222;
             overflow: hidden;
             position: relative;
         }
-        /* 실제 사용시 이미지 태그로 교체하거나 배경 이미지 설정 */
         .fellow-img-placeholder {
             width: 100%; height: 100%;
             background: linear-gradient(45deg, #111, #222);
             display: flex; align-items: center; justify-content: center;
-            color: #333; font-size: 2rem;
+            color: #333; font-size: 1.5rem;
         }
         .fellow-img {
             width: 100%; height: 100%; object-fit: cover;
-            filter: grayscale(100%); /* 흑백 처리 */
+            filter: grayscale(100%); /* 기본 흑백 처리 */
             transition: 0.5s;
         }
-        .fellow-card:hover .fellow-img { filter: grayscale(0%); }
+        .fellow-card:hover .fellow-img { filter: grayscale(0%); /* 마우스 오버시 컬러 */ }
 
         .fellow-info { padding: 25px; }
-        .fellow-role { font-size: 0.8rem; color: var(--accent); letter-spacing: 1px; margin-bottom: 5px; display: block; text-transform: uppercase;}
+        .fellow-role { font-size: 0.75rem; color: var(--accent); letter-spacing: 1px; margin-bottom: 8px; display: block; text-transform: uppercase;}
         .fellow-name { font-size: 1.4rem; font-family: 'Playfair Display', serif; margin-bottom: 5px; color: #fff;}
         .fellow-specialty { font-size: 0.9rem; color: #aaa; margin-bottom: 15px; font-weight: 600;}
         .fellow-desc { font-size: 0.85rem; color: var(--text-sub); line-height: 1.6; }
 
-        /* --- [7. 인사이트 (Archives)] --- */
+        /* --- [7. 인사이트 아카이브 (Insights) - 개선된 디자인] --- */
         .archive-list {
             border-top: 1px solid #222;
+            margin-top: 40px;
         }
         .archive-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 30px 0;
+            align-items: flex-start;
+            padding: 40px 20px;
             border-bottom: 1px solid #222;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        .archive-item:hover .archive-title { color: var(--accent); padding-left: 10px; }
-        .archive-meta { font-size: 0.8rem; color: var(--text-sub); width: 150px; }
-        .archive-title { font-size: 1.2rem; font-weight: 400; color: #fff; flex-grow: 1; transition: 0.3s; }
-        .archive-arrow { color: #444; }
+        .archive-item:hover { 
+            background-color: #0f0f0f; 
+        }
+        
+        .archive-item:hover .archive-title { color: var(--accent); }
+
+        .archive-meta { 
+            font-size: 0.75rem; 
+            color: var(--accent); 
+            width: 160px; 
+            padding-top: 6px; 
+            font-weight: 600; 
+            letter-spacing: 1px;
+            flex-shrink: 0; /* 너비 고정 */
+        }
+        
+        .archive-content {
+            flex-grow: 1;
+            padding-right: 40px;
+        }
+
+        .archive-title { 
+            font-size: 1.4rem; 
+            font-weight: 400; 
+            color: #fff; 
+            margin-bottom: 12px;
+            font-family: 'Playfair Display', serif;
+            transition: color 0.3s;
+        }
+        
+        .archive-desc {
+            font-size: 0.95rem;
+            color: #777;
+            line-height: 1.6;
+            font-weight: 300;
+            max-width: 800px;
+        }
+
+        .archive-arrow { 
+            color: #444; 
+            font-size: 1.5rem;
+            padding-top: 5px;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+        .archive-item:hover .archive-arrow { opacity: 1; transform: translateX(5px); color: #fff; }
 
         /* --- [8. 푸터] --- */
         footer {
@@ -212,14 +255,18 @@
             color: #fff;
             font-size: 0.8rem;
             letter-spacing: 1px;
+            transition: 0.3s;
         }
-        .contact-btn:hover { background: #fff; color: #000; }
+        .contact-btn:hover { background: #fff; color: #000; border-color: #fff; }
 
         /* 모바일 대응 */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .manifesto-grid { grid-template-columns: 1fr; }
             .pillars-grid { grid-template-columns: 1fr; }
+            .archive-item { flex-direction: column; padding: 30px 10px; }
+            .archive-meta { margin-bottom: 15px; }
+            .archive-content { padding-right: 0; margin-bottom: 15px; }
         }
 
         @keyframes bounce {
@@ -293,11 +340,11 @@
                 
                 <div class="fellow-card">
                     <div class="fellow-img-box">
-                        <div class="fellow-img-placeholder">PHOTO</div>
+                        <img src="https://github.com/crossall/atelier/blob/main/jhr.png?raw=true" class="fellow-img" alt="Jeon Haeri Director">
                     </div>
                     <div class="fellow-info">
                         <span class="fellow-role">Director & PI</span>
-                        <h3 class="fellow-name">OOO</h3>
+                        <h3 class="fellow-name">전혜리</h3>
                         <p class="fellow-specialty">Digital Epistemology & Architecture</p>
                         <p class="fellow-desc">디지털 기술이 인간의 사고방식을 어떻게 변화시키는지 연구하고, 이를 교육과정에 구조화합니다.</p>
                     </div>
@@ -363,20 +410,29 @@
             <div class="archive-list fade-in">
                 
                 <div class="archive-item">
-                    <div class="archive-meta">PROJECT 01</div>
-                    <div class="archive-title">Agency through AI : 생성형 AI를 활용한 주도적 작문 모델</div>
+                    <div class="archive-meta">CASE STUDY 01</div>
+                    <div class="archive-content">
+                        <div class="archive-title">Contextual Problem Solving : 과학실 단열 프로젝트</div>
+                        <div class="archive-desc">"실제 공간의 문제를 데이터로 해결하다." 열화상 카메라와 데이터 분석을 통해 교실의 에너지 효율 문제를 학생 주도로 해결한 PBL 모델.</div>
+                    </div>
                     <div class="archive-arrow">↗</div>
                 </div>
 
                 <div class="archive-item">
-                    <div class="archive-meta">PROJECT 02</div>
-                    <div class="archive-title">The Art of Prompting : 질문이 곧 실력이 되는 교실</div>
+                    <div class="archive-meta">METHODOLOGY</div>
+                    <div class="archive-content">
+                        <div class="archive-title">AI-Augmented Reflection : 수업 성찰 GPT 모델링</div>
+                        <div class="archive-desc">"AI는 교사의 메타인지를 돕는 파트너다." Custom GPT를 활용하여 '학생 참여형 수업'의 8대 핵심 요소를 기준으로 수업 디자인을 분석하고 개선한 사례.</div>
+                    </div>
                     <div class="archive-arrow">↗</div>
                 </div>
 
                 <div class="archive-item">
-                    <div class="archive-meta">CASE STUDY</div>
-                    <div class="archive-title">Digital Citizenship 2.0 : 연결과 책임의 시뮬레이션</div>
+                    <div class="archive-meta">INFRASTRUCTURE</div>
+                    <div class="archive-content">
+                        <div class="archive-title">The Digital Atelier : 1인 1디바이스 환경 설계</div>
+                        <div class="archive-desc">단순한 기자재 보급을 넘어, 학생의 주도적 탐구와 협업이 상시 일어나는 '디지털 공방'으로서의 교실 환경 구축 전략.</div>
+                    </div>
                     <div class="archive-arrow">↗</div>
                 </div>
 
@@ -404,7 +460,7 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add("visible");
-                        observer.unobserve(entry.target); // 한번만 실행
+                        observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
