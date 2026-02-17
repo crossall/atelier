@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGENCY LAB | The Teacher's Atelier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- [1. 기본 설정 & 리셋] --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-main: #f0f0f0;
+            --text-sub: #888888;
+            --accent: #d4af37; /* 차분한 골드 포인트 */
+            --border: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* 타이포그래피 */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- [2. 애니메이션 효과] --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- [3. 헤더 & 히어로 섹션] --- */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
+        .logo { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: 2px; }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+        }
+        .hero h1 {
+            font-size: 4rem; /* 모바일 대응 필요 */
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            animation: bounce 2s infinite;
+        }
+
+        /* --- [4. 매니페스토 (철학)] --- */
+        .section { padding: 120px 0; border-bottom: 1px solid #111; }
+        .manifesto-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+        }
+        .section-title {
+            font-size: 1rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .manifesto-text {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #ccc;
+        }
+        .manifesto-text strong { color: #fff; font-weight: 600; }
+
+        /* --- [5. 핵심 가치 (Pillars)] --- */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+        .pillar-card {
+            padding: 40px 20px;
+            border: 1px solid #222;
+            transition: 0.4s;
+        }
+        .pillar-card:hover { border-color: var(--accent); background: #111; }
+        .pillar-num { font-size: 3rem; color: #222; font-family: 'Playfair Display', serif; margin-bottom: 20px; display: block; }
+        .pillar-title { font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 2px; }
+        .pillar-desc { font-size: 0.95rem; color: var(--text-sub); }
+
+        /* --- [6. 연구원 (Fellows)] --- */
+        .fellows-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .fellow-card {
+            background: #111;
+            padding: 0;
+            border: 1px solid #222;
+            transition: transform 0.3s;
+        }
+        .fellow-card:hover { transform: translateY(-5px); border-color: #444; }
+        
+        .fellow-img-box {
+            width: 100%;
+            height: 300px;
+            background-color: #222;
+            overflow: hidden;
+            position: relative;
+        }
+        /* 실제 사용시 이미지 태그로 교체하거나 배경 이미지 설정 */
+        .fellow-img-placeholder {
+            width: 100%; height: 100%;
+            background: linear-gradient(45deg, #111, #222);
+            display: flex; align-items: center; justify-content: center;
+            color: #333; font-size: 2rem;
+        }
+        .fellow-img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: grayscale(100%); /* 흑백 처리 */
+            transition: 0.5s;
+        }
+        .fellow-card:hover .fellow-img { filter: grayscale(0%); }
+
+        .fellow-info { padding: 25px; }
+        .fellow-role { font-size: 0.8rem; color: var(--accent); letter-spacing: 1px; margin-bottom: 5px; display: block; text-transform: uppercase;}
+        .fellow-name { font-size: 1.4rem; font-family: 'Playfair Display', serif; margin-bottom: 5px; color: #fff;}
+        .fellow-specialty { font-size: 0.9rem; color: #aaa; margin-bottom: 15px; font-weight: 600;}
+        .fellow-desc { font-size: 0.85rem; color: var(--text-sub); line-height: 1.6; }
+
+        /* --- [7. 인사이트 (Archives)] --- */
+        .archive-list {
+            border-top: 1px solid #222;
+        }
+        .archive-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #222;
+            cursor: pointer;
+        }
+        .archive-item:hover .archive-title { color: var(--accent); padding-left: 10px; }
+        .archive-meta { font-size: 0.8rem; color: var(--text-sub); width: 150px; }
+        .archive-title { font-size: 1.2rem; font-weight: 400; color: #fff; flex-grow: 1; transition: 0.3s; }
+        .archive-arrow { color: #444; }
+
+        /* --- [8. 푸터] --- */
+        footer {
+            padding: 80px 0;
+            text-align: center;
+            border-top: 1px solid #222;
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #fff; margin-bottom: 20px; display: block; }
+        .contact-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            border: 1px solid #444;
+            color: #fff;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        .contact-btn:hover { background: #fff; color: #000; }
+
+        /* 모바일 대응 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .manifesto-grid { grid-template-columns: 1fr; }
+            .pillars-grid { grid-template-columns: 1fr; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">AGENCY LAB.</div>
+        <div style="font-size: 0.8rem; letter-spacing: 1px;">EST. 2026</div>
+    </header>
+
+    <section class="hero">
+        <div class="fade-in">
+            <h1>DESIGN THE AGENCY.<br>ARCHITECT THE CONTEXT.</h1>
+            <p>기술을 넘어 맥락으로, 배움을 넘어 표현으로.</p>
+        </div>
+        <div class="scroll-down">SCROLL DOWN</div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="manifesto-grid fade-in">
+                <div>
+                    <span class="section-title">MANIFESTO</span>
+                </div>
+                <div>
+                    <p class="manifesto-text">
+                        "우리는 가르치지 않습니다. <strong>설계합니다.</strong>"<br><br>
+                        디지털 대전환의 시대, 우리는 도구의 사용법을 좇는 대신 그 도구가 학생의 삶에 닿는 순간을 연구합니다.<br><br>
+                        학생이 단순한 소비자를 넘어, 자신의 앎을 세상에 증명하는 <strong>창작자(Creator)</strong>가 되도록.<br>
+                        교사가 지식 전달자를 넘어, 배움의 시공간을 조율하는 <strong>설계자(Designer)</strong>가 되도록.<br><br>
+                        이곳은 교육의 본질을 지키며, 기술을 가장 인간적으로 다루는 소수 정예 전문가들의 공간입니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background-color: #0f0f0f;">
+        <div class="container">
+            <span class="section-title fade-in" style="text-align: center; margin-bottom: 60px;">CORE VALUES</span>
+            <div class="pillars-grid fade-in">
+                <div class="pillar-card">
+                    <span class="pillar-num">01</span>
+                    <h3 class="pillar-title">CONTEXT</h3>
+                    <p class="pillar-desc">도구보다 의도를 먼저 묻습니다.<br>수업이라는 시공간의 맥락을 설계합니다.</p>
+                </div>
+                <div class="pillar-card">
+                    <span class="pillar-num">02</span>
+                    <h3 class="pillar-title">AGENCY</h3>
+                    <p class="pillar-desc">정답을 찾는 것이 아니라<br>나만의 해법을 만들어내는 힘을 기릅니다.</p>
+                </div>
+                <div class="pillar-card">
+                    <span class="pillar-num">03</span>
+                    <h3 class="pillar-title">EXPRESSION</h3>
+                    <p class="pillar-desc">배움은 머릿속에 머물지 않고<br>세상 밖으로 표현되어야 합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <span class="section-title fade-in">THE FELLOWS</span>
+            <div class="fellows-grid fade-in">
+                
+                <div class="fellow-card">
+                    <div class="fellow-img-box">
+                        <div class="fellow-img-placeholder">PHOTO</div>
+                    </div>
+                    <div class="fellow-info">
+                        <span class="fellow-role">Director & PI</span>
+                        <h3 class="fellow-name">OOO</h3>
+                        <p class="fellow-specialty">Digital Epistemology & Architecture</p>
+                        <p class="fellow-desc">디지털 기술이 인간의 사고방식을 어떻게 변화시키는지 연구하고, 이를 교육과정에 구조화합니다.</p>
+                    </div>
+                </div>
+
+                <div class="fellow-card">
+                    <div class="fellow-img-box"><div class="fellow-img-placeholder">PHOTO</div></div>
+                    <div class="fellow-info">
+                        <span class="fellow-role">Lead Fellow / AI</span>
+                        <h3 class="fellow-name">OOO</h3>
+                        <p class="fellow-specialty">AI-Augmented Cognition</p>
+                        <p class="fellow-desc">AI를 단순한 자동화 도구가 아닌, 학생의 사고력을 증폭시키는 인지적 파트너로 재정의합니다.</p>
+                    </div>
+                </div>
+
+                <div class="fellow-card">
+                    <div class="fellow-img-box"><div class="fellow-img-placeholder">PHOTO</div></div>
+                    <div class="fellow-info">
+                        <span class="fellow-role">Senior Strategist</span>
+                        <h3 class="fellow-name">OOO</h3>
+                        <p class="fellow-specialty">Educational Foresight</p>
+                        <p class="fellow-desc">급변하는 사회 변화 속에서 변하지 않는 교육의 가치를 찾고, 미래 역량 로드맵을 그립니다.</p>
+                    </div>
+                </div>
+
+                <div class="fellow-card">
+                    <div class="fellow-img-box"><div class="fellow-img-placeholder">PHOTO</div></div>
+                    <div class="fellow-info">
+                        <span class="fellow-role">Environment Architect</span>
+                        <h3 class="fellow-name">OOO</h3>
+                        <p class="fellow-specialty">Immersive Learning Env.</p>
+                        <p class="fellow-desc">학습자가 몰입할 수 있는 최적의 디지털 생태계와 도구를 발굴하고 설계합니다.</p>
+                    </div>
+                </div>
+
+                <div class="fellow-card">
+                    <div class="fellow-img-box"><div class="fellow-img-placeholder">PHOTO</div></div>
+                    <div class="fellow-info">
+                        <span class="fellow-role">Creative Technologist</span>
+                        <h3 class="fellow-name">OOO</h3>
+                        <p class="fellow-specialty">Digital Expression & Storytelling</p>
+                        <p class="fellow-desc">학생들이 자신의 앎을 다양한 디지털 매체로 변환하여 세상과 소통하는 법을 연구합니다.</p>
+                    </div>
+                </div>
+
+                <div class="fellow-card">
+                    <div class="fellow-img-box"><div class="fellow-img-placeholder">PHOTO</div></div>
+                    <div class="fellow-info">
+                        <span class="fellow-role">Instructional Designer</span>
+                        <h3 class="fellow-name">OOO</h3>
+                        <p class="fellow-specialty">Contextual Integration</p>
+                        <p class="fellow-desc">기술이 교과 본질을 흐리지 않도록, 교육과정의 맥락 속에 디지털 요소를 유기적으로 결합합니다.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <span class="section-title fade-in">INSIGHT ARCHIVE</span>
+            <div class="archive-list fade-in">
+                
+                <div class="archive-item">
+                    <div class="archive-meta">PROJECT 01</div>
+                    <div class="archive-title">Agency through AI : 생성형 AI를 활용한 주도적 작문 모델</div>
+                    <div class="archive-arrow">↗</div>
+                </div>
+
+                <div class="archive-item">
+                    <div class="archive-meta">PROJECT 02</div>
+                    <div class="archive-title">The Art of Prompting : 질문이 곧 실력이 되는 교실</div>
+                    <div class="archive-arrow">↗</div>
+                </div>
+
+                <div class="archive-item">
+                    <div class="archive-meta">CASE STUDY</div>
+                    <div class="archive-title">Digital Citizenship 2.0 : 연결과 책임의 시뮬레이션</div>
+                    <div class="archive-arrow">↗</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <span class="footer-logo">AGENCY LAB.</span>
+            <p>We carefully design the future of education.</p>
+            <p style="margin-top: 10px;">Seoul, Republic of Korea</p>
+            <a href="mailto:collab@agencylab.kr" class="contact-btn">REQUEST INVITATION</a>
+            <p style="margin-top: 50px; opacity: 0.3; font-size: 0.7rem;">&copy; 2026 AGENCY LAB. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target); // 한번만 실행
+                    }
+                });
+            }, observerOptions);
+
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
